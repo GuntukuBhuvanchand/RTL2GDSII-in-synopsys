@@ -1,0 +1,33 @@
+set PDK_PATH ./../ref
+
+create_lib -ref_lib $PDK_PATH/lib/ndm/saed32rvt_c.ndm FULL_ADDER_LIB
+
+read_verilog {./../DC/results/full_adder.mapped.v} -library FULL_ADDER_LIB -design full_adder -top full_adder
+
+#open the lib and block after saving
+#open_lib FULL_ADDER_LIB
+#open_block FULL_ADD
+
+
+# FloorPlan settings
+#
+#scenario1:
+##
+initialize_floorplan
+set_individual_pin_constraints -ports [get_ports] -sides 3
+place_pins -self
+create_placement -floorplan
+#
+save_block -as FULL_ADD
+save_lib
+
+#scenario2:
+###
+#initialize_floorplan -shape R -core_offset 1
+#set_individual_pin_constraints -ports [get_ports A] -sides 2
+#place_pins -self
+#create_placement -floorplan -effort medium 
+#save_block
+#save_lib
+#
+#
